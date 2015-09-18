@@ -1,0 +1,41 @@
+li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+	color:black;
+}
+
+
+li ul{
+	background-color: #fff;
+}
+
+.dates>li{
+	background-color: #fafaee;
+}
+
+.not{
+	color:green;
+}
+.mark ul{margin:0px;padding:0px 20px;width:100%;height: 100%;}
+.mark li{display: inline-block;margin-left:10px;}
+.mark a{padding: 5px 15px;height: 50%;line-height: 45px;}
+.btnactive{background-color: #fff;border:1px solid #ccc;border-radius: 6px;}
+.catactive{background-color: #fff;}
+.add-cata a,.add-miss a{
+	display: block;
+	line-height: 45px;
+	text-align: center;
+	background:url(../images/add.png) no-repeat 40px 7px/30px 30px;
+}
+.cata-list p{line-height: 26px;height: 26px;text-indent:20px !important;}
+.cata-list li,.cata-list p,.cata-list li ul {text-indent: 50px;}
+.cata-list li ul li{text-indent: 80px;background: url(../images/page.png) no-repeat 55px 4px /20px 20px; }
+.cata-list li{padding:5px 0px;}
+.cata-list li ul{margin-top:5px;}
+#cl>li{background: url(../images/doc.png) no-repeat 20px 0px /25px 25px;}
+.dates li{line-height:2em;}
+.dates>li{text-indent:1em;}
+.dates li ul li{text-indent:2em;}

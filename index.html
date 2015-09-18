@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel='stylesheet' type='text/css' href='styles/basic.css' />
+<link rel='stylesheet' type='text/css' href='styles/main.css' />
+</head>
+<body>
+<header id='header'>
+	<h2>GTD Tools</h2>
+</header>
+<div id='main'>
+	<div class='catagory'>
+		<div class='cata-list'>
+			<p>All Mission (<span id='all-mission'></span>)</p>
+			<p>Catagory List</p>
+			<ul id='cl'>
+				<li>Default</li>
+				<li>Rocker Project I (<span id='all-mission'></span>)
+					<ul>
+						<li>get things rock</li>
+						<li>rock and roll</li>
+					</ul>
+				</li>
+				<li>Bigbang Theory (<span id='all-mission'></span>)</li>
+				<li>Rick and Morty (<span id='all-mission'></span>)</li>
+			</ul>
+		</div>
+		<div class='add-cata'>
+			<a href='#'>Add Catagory</a>
+		</div>
+	</div>
+	<div class='list'>
+		<div class='mark'>
+			<ul>
+				<li><a href='#' class='btnactive'>All</a></li>
+				<li><a href='#'>Yet</a></li>
+				<li><a href='#'>Done</a></li>
+			</ul>
+		</div>
+		<div class='sort'>
+			<ul class='dates'>
+				<li>123.45.66.77
+					<ul>
+						<li class='not'>i like girls</li>
+					</ul>
+				</li>
+				<li>2.5.6
+					<ul>
+						<li>rock</li>
+						<li>rock</li>
+					</ul>
+				</li>
+				<li>xxxxxxxxxxxx</li>
+			</ul>
+		</div>
+		<div class='add-miss'>
+			<a href='#'>Add Mission</a>
+		</div>
+	</div>
+	<div class='content'>
+		<div class='title'>like G6</div>
+		<div class='mission-date'>任务日期：2012.04.21</div>
+		<div class='text'>put your hands up</div>
+	</div>
+</div>
+<script>
+window.onload=function(){
+	var oMain=document.getElementById('main');
+	var oHeader=document.getElementById('header');
+	oMain.style['height']=(document.documentElement.clientHeight-oHeader.offsetHeight)+'px';
+}
+
+window.onresize=function(){
+	var oMain=document.getElementById('main');
+	var oHeader=document.getElementById('header');
+	oMain.style['height']=(document.documentElement.clientHeight-oHeader.offsetHeight)+'px';
+}
+</script>
+</body>
+</html>
