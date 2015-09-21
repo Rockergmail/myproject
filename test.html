@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<div id='a b'>a b</div>
+<div id='b'>b</div>
+
+<div id='a'>a</div>
+
+<ul id='ul'>
+	<li id='li1'> li1
+		<ul>
+			<li id='li2'> li2</li>
+		</ul>
+	</li>
+</ul>
+<script>
+function byClass(cname,tagname){
+	cname=(cname.indexOf('.')==0)?cname.substring(1):cname;
+	console.log(cname);
+	if(document.getElementsByClassName){
+		return document.getElementsByClassName(cname);
+	}
+	else if(document.querySelector){
+		return document.querySelectorAll('.'+cname);
+	}
+	else{
+		tagname=tagname?tagname:'*';
+		var all=document.getElementsByTagName(tagname);
+		var get=[];
+		for(var i=0;i<all.length;i++){
+			if(all[i].className.indexOf(cname)>=0){
+				get.push(all[i]);
+			}
+		}
+		return get;
+	}
+}
+
+var li1=document.getElementById('li1');
+var li2=document.getElementById('li2');
+li1.onclick=function(){
+	alert('li1');
+}
+li2.onclick=function(event){
+	alert('li2');
+	event.stopPropagation();
+}
+</script>
+</body>
+</html>

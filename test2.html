@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+<ul id='ul'>
+<li id='li'>shit</li>
+</ul>
+<script>
+var ul=document.getElementById('ul');
+var li=document.getElementById('li');
+var newli=document.createElement('li');
+newli.innerHTML='rock';
+ul.insertBefore(newli,li);
+console.log(ul.tagName);
+</script>
+</body>
+</html>
