@@ -6,8 +6,8 @@ a{
 	text-decoration: none;
 	color:black;
 }
-.not{
-	color:green;
+.yet{
+	color:red;
 }
 .mark ul{margin:0px;padding:0px 20px;width:100%;height: 100%;}
 .mark li{display: inline-block;margin-left:10px;}

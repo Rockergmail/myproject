@@ -3,11 +3,7 @@ var oAddCata=document.getElementById('add-cata');
 var oDelCata=document.getElementById('del-cata');
 var oAddMission=document.getElementById('add-miss');
 var oDelMission=document.getElementById('del-miss');
-var oMark='';
-var oDone='';
-var oEdit='';
-var oSave='';  //auto save
-var oDel='';
+var oMark=[$('#markall'),$('#markyet'),$('#markdone')];
 
 //getElementByClassName
 function byClass(cname,tagname){
@@ -115,7 +111,7 @@ for(var i=0;i<oCata.children.length;i++){
 function addMission(){
 	var today=new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate();
 	var activeDiv=byClass('div-active')[0];
-	if(activeDiv.children[1]) activeDiv.removeChild(activeDiv.children[1]);//??? need to check ???
+	if(activeDiv.children[1]) activeDiv.removeChild(activeDiv.children[1]);
 	var oLi=$('li');
 	oLi.innerHTML='new mission';
 	oLi.className='yet';
@@ -130,6 +126,58 @@ function addMission(){
 	oLi.content='';
 	
 }
+
+
+//change mark
+function markChange(state1,state2){
+		console.log(this);
+		byClass('btnactive')[0].className='';
+		this.className='btnactive';
+		if(byClass('done')){
+			var oDone=byClass('done');
+			for(var i=0;i<oDone.length;i++){
+				oDone[i].style.display=state1;
+			}
+		}
+		if(byClass('yet')){
+			var oYet=byClass('yet');
+			for(var i=0;i<oYet.length;i++){
+				oYet[i].style.display=state2;
+			}
+		}
+		return false;
+	}
+	
+	oMark[0].onclick=function(){markChange.call(this,'block','block');}
+	oMark[1].onclick=function(){markChange.call(this,'none','block'); }
+	oMark[2].onclick=function(){markChange.call(this,'block','none'); }
+	
+	/*纠正错误的想法：this指向调用该函数的对象*/
+	
+//change mark
+/*
+function markChange(obj,state1,state2){
+		byClass('btnactive')[0].className='';
+		obj.className='btnactive';
+		if(byClass('done')){
+			var oDone=byClass('done');
+			for(var i=0;i<oDone.length;i++){
+				oDone[i].style.display=state1;
+			}
+		}
+		if(byClass('yet')){
+			var oYet=byClass('yet');
+			for(var i=0;i<oYet.length;i++){
+				oYet[i].style.display=state2;
+			}
+		}
+		return false;
+	}
+	
+	oMark[0].onclick=function(){markChange(this,'block','block');}
+	oMark[1].onclick=function(){markChange(this,'none','block');}
+	oMark[2].onclick=function(){markChange(this,'block','none');}
+*/
 
 addNew();
 
