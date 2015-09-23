@@ -120,11 +120,14 @@ function addMission(){
 	//click or add, it will read the data and focus
 	oLi.className+=' miss-active';
 	//content of mission
-	oLi.title='';
+	oLi.title='new mission';
 	oLi.startTime=today;
 	oLi.endTime='';
 	oLi.content='';
-	
+	$('#title').innerHTML=oLi.title;
+	$('#starttime').innerHTML=oLi.startTime;
+	$('#endtime').innerHTML=oLi.endTime;
+	$('#content-text').innerHTML=oLi.content;
 }
 
 
@@ -179,6 +182,18 @@ function markChange(obj,state1,state2){
 	oMark[2].onclick=function(){markChange(this,'block','none');}
 */
 
+//when click the mission
+$('#sort').addEventListener('click',function(e){
+	if(e.target && e.target.nodeName.toUpperCase()=='LI'){
+		byClass('miss-active')[0].className=byClass('miss-active')[0].className.replace(' miss-active','');
+		e.target.className+=' miss-active';
+		$('#title').innerHTML=e.target.title;
+		$('#starttime').innerHTML=e.target.startTime;
+		$('#endtime').innerHTML=e.target.endTime;
+		$('#content-text').innerHTML=e.target.content;
+	}
+},false);
+
 addNew();
 
 oAddCata.onclick=function(){
@@ -188,3 +203,4 @@ oAddCata.onclick=function(){
 oAddMission.onclick=function(){
 	addMission();
 }
+
