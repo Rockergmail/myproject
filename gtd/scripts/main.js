@@ -107,8 +107,17 @@ for(var i=0;i<oCata.children.length;i++){
 }
 }
 
+//check if the finish btn exist
+function finishExist(){
+	if($('#finish').style.display=='block'){
+		$('#finish').onclick();
+	}
+}
+
 //add mission
 function addMission(){
+	//submit the edit first 
+	finishExist();
 	var today=new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate();
 	var activeDiv=byClass('div-active')[0];
 	if(activeDiv.children[1]) activeDiv.removeChild(activeDiv.children[1]);
@@ -184,6 +193,9 @@ function markChange(obj,state1,state2){
 
 //when click the mission
 $('#sort').addEventListener('click',function(e){
+	//submit the edit if so
+	finishExist();
+
 	if(e.target && e.target.nodeName.toUpperCase()=='LI'){
 		byClass('miss-active')[0].className=byClass('miss-active')[0].className.replace(' miss-active','');
 		e.target.className+=' miss-active';
@@ -195,39 +207,66 @@ $('#sort').addEventListener('click',function(e){
 },false);
 
 $('#edit').onclick=function(){
-	var finish=$('#finish'),
+	var edit=$('#edit');
+		finish=$('#finish'),
 		titleedit=$('#titleedit'),
 		title=$('#title'),
 		timeedit=$('#timeedit'),
 		endtime=$('#endtime'),
 		contenttextedit=$('#content-text-edit'),
 		contenttext=$('#content-text'),
-		_this=this;
-		
+		missactive=byClass('miss-active')[0];
 	var edits=[titleedit,timeedit,contenttextedit],shows=[title,endtime,contenttext];
 
 	for(var xx=0;xx<edits.length;xx++){
 		edits[xx].innerHTML=shows[xx].innerHTML;
-		edits[xx].value=shows.value;
+		edits[xx].value=shows[xx].innerHTML;
 		edits[xx].style.display='block';
 		shows[xx].style.display='none';
 	}
 	
+	this.style.display='none';
 	finish.style.display='block';
-	finish.onclick=function(){
+	return false;
+}
+
+$('#finish').onclick=function(){
+
+	var edit=$('#edit');
+		finish=$('#finish'),
+		titleedit=$('#titleedit'),
+		title=$('#title'),
+		timeedit=$('#timeedit'),
+		endtime=$('#endtime'),
+		contenttextedit=$('#content-text-edit'),
+		contenttext=$('#content-text'),
+		missactive=byClass('miss-active')[0];
+	var edits=[titleedit,timeedit,contenttextedit],shows=[title,endtime,contenttext];
+
 		for(var xx=0;xx<edits.length;xx++){
-			shows[xx].innerHTML=edits[xx].innerHTML;
-			shows[xx].value=edits[xx].value;
 			shows[xx].style.display='block';
 			edits[xx].style.display='none';
 		}
-		_this.style.display='block';
+
+		missactive.title=missactive.innerHTML=edits[0].value;
+		missactive.endTime=edits[1].value;
+		missactive.content=edits[2].innerHTML;
+
+		missactive.click();
+
+		edit.style.display='block';
 		this.style.display='none';
 		return false;
-	}
-	
-	return false;
 }
+
+//inital
+var aboutme=$('#aboutme');
+aboutme.title='about me';
+aboutme.startTime='2015-09-26';
+aboutme.endTime='Who knows';
+aboutme.content='Author:Rocker';
+aboutme.click();
+
 addNew();
 
 oAddCata.onclick=function(){
