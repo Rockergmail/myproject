@@ -194,6 +194,40 @@ $('#sort').addEventListener('click',function(e){
 	}
 },false);
 
+$('#edit').onclick=function(){
+	var finish=$('#finish'),
+		titleedit=$('#titleedit'),
+		title=$('#title'),
+		timeedit=$('#timeedit'),
+		endtime=$('#endtime'),
+		contenttextedit=$('#content-text-edit'),
+		contenttext=$('#content-text'),
+		_this=this;
+		
+	var edits=[titleedit,timeedit,contenttextedit],shows=[title,endtime,contenttext];
+
+	for(var xx=0;xx<edits.length;xx++){
+		edits[xx].innerHTML=shows[xx].innerHTML;
+		edits[xx].value=shows.value;
+		edits[xx].style.display='block';
+		shows[xx].style.display='none';
+	}
+	
+	finish.style.display='block';
+	finish.onclick=function(){
+		for(var xx=0;xx<edits.length;xx++){
+			shows[xx].innerHTML=edits[xx].innerHTML;
+			shows[xx].value=edits[xx].value;
+			shows[xx].style.display='block';
+			edits[xx].style.display='none';
+		}
+		_this.style.display='block';
+		this.style.display='none';
+		return false;
+	}
+	
+	return false;
+}
 addNew();
 
 oAddCata.onclick=function(){
