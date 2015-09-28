@@ -124,10 +124,7 @@ function addMission(){
 	var oLi=$('li');
 	oLi.innerHTML='new mission';
 	oLi.className='yet';
-	byClass('miss-active')[0].className=byClass('miss-active')[0].className.replace(' miss-active','');
 	activeDiv.children[0].appendChild(oLi);
-	//click or add, it will read the data and focus
-	oLi.className+=' miss-active';
 	//content of mission
 	oLi.title='new mission';
 	oLi.startTime=today;
@@ -137,12 +134,13 @@ function addMission(){
 	$('#starttime').innerHTML=oLi.startTime;
 	$('#endtime').innerHTML=oLi.endTime;
 	$('#content-text').innerHTML=oLi.content;
+	oLi.click();
+	missionCount();
 }
 
 
 //change mark
 function markChange(state1,state2){
-		console.log(this);
 		byClass('btnactive')[0].className='';
 		this.className='btnactive';
 		if(byClass('done')){
@@ -192,11 +190,25 @@ function markChange(obj,state1,state2){
 */
 
 //when click the mission
+
+function missionCount(){
+	var licount=$('#sort').getElementsByTagName('li').length;
+	$('#all-mission').innerHTML=licount;
+}
+
 $('#sort').addEventListener('click',function(e){
 	//submit the edit if so
 	finishExist();
-
+	var setyet=$('#setyet'),setdone=$('#setdone');
 	if(e.target && e.target.nodeName.toUpperCase()=='LI'){
+		setyet.style.display='none';
+		setdone.style.display='none';
+		if(e.target.className.indexOf('done')>-1){
+			setyet.style.display='inline';
+		}
+		else{
+			setdone.style.display='inline';
+		}
 		byClass('miss-active')[0].className=byClass('miss-active')[0].className.replace(' miss-active','');
 		e.target.className+=' miss-active';
 		$('#title').innerHTML=e.target.title;
@@ -215,8 +227,12 @@ $('#edit').onclick=function(){
 		endtime=$('#endtime'),
 		contenttextedit=$('#content-text-edit'),
 		contenttext=$('#content-text'),
-		missactive=byClass('miss-active')[0];
+		missactive=byClass('miss-active')[0],
+		changestate=$('#changestate');
 	var edits=[titleedit,timeedit,contenttextedit],shows=[title,endtime,contenttext];
+
+	//hide the changestate
+	changestate.style.display='none';
 
 	for(var xx=0;xx<edits.length;xx++){
 		edits[xx].innerHTML=shows[xx].innerHTML;
@@ -240,8 +256,11 @@ $('#finish').onclick=function(){
 		endtime=$('#endtime'),
 		contenttextedit=$('#content-text-edit'),
 		contenttext=$('#content-text'),
-		missactive=byClass('miss-active')[0];
+		missactive=byClass('miss-active')[0],
+		changestate=$('#changestate');
 	var edits=[titleedit,timeedit,contenttextedit],shows=[title,endtime,contenttext];
+
+	changestate.style.display='block';
 
 		for(var xx=0;xx<edits.length;xx++){
 			shows[xx].style.display='block';
@@ -259,13 +278,30 @@ $('#finish').onclick=function(){
 		return false;
 }
 
-//inital
+$('#setdone').onclick=function(){
+	var missactive=byClass('miss-active')[0];
+	missactive.className=missactive.className.replace('yet','done');
+	missactive.click();
+};
+
+$('#setyet').onclick=function(){
+	var missactive=byClass('miss-active')[0];
+	missactive.className=missactive.className.replace('done','yet');
+	missactive.click();
+}
+
+
+
+//inital "about me"
 var aboutme=$('#aboutme');
 aboutme.title='about me';
 aboutme.startTime='2015-09-26';
 aboutme.endTime='Who knows';
 aboutme.content='Author:Rocker';
 aboutme.click();
+
+//all mission count
+missionCount();
 
 addNew();
 

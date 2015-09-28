@@ -47,3 +47,7 @@ a{
 	padding-left: 20px;
 	font-weight: bold;
 	font-size:22px;}
+
+#changestate{float: right;line-height: 50px;padding-right: 20px;}
+#changestate a{background-color:gray;color:white;padding: 10px;border-radius: 10px;}
+#changestate a:hover{color:red};
