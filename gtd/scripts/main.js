@@ -59,6 +59,7 @@ function addCata(parent,id){
 		}
 		else{
 			if(parent.id=='cl')	oLi.innerHTML=oInput.value+'<span></span><ul></ul>';
+			/********************HERE IS A BIG BUG*********************/
 			else oLi.innerHTML=oInput.value;
 			// id management
 			if($('#'+id+'-'+oInput.value)){
@@ -194,6 +195,11 @@ function markChange(obj,state1,state2){
 function missionCount(){
 	var licount=$('#sort').getElementsByTagName('li').length;
 	$('#all-mission').innerHTML=licount;
+
+	var licount2=byClass('cata-active')[0].className;
+	var licount2=byClass(licount2.replace(' cata-active',''))[1].getElementsByTagName('li').length;
+	byClass('cata-active')[0].getElementsByTagName('span')[0].innerHTML='('+licount2+')';
+
 }
 
 $('#sort').addEventListener('click',function(e){
