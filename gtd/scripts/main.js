@@ -60,7 +60,7 @@ function addCata(parent,id){
 		else{
 			if(parent.id=='cl')	oLi.innerHTML=oInput.value+'<span></span><ul></ul>';
 			/********************HERE IS A BIG BUG*********************/
-			else oLi.innerHTML=oInput.value;
+			else oLi.innerHTML=oInput.value+'<span></span>';
 			// id management
 			if($('#'+id+'-'+oInput.value)){
 				parent.removeChild(oLi);
