@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
+    <title>pocket money</title>
+    <link rel="stylesheet" href="//dn-w-qiandeer.qbox.me/qd/static/dist/1.9.14/common.css"/>
+    <style>
+    body{background-color:transparent;}
+    .tip-layer {
+    background: none;
+    background-color:rgba(0,0,0,.8);
+    width:100%;
+    height: 100%;
+    overflow:hidden;
+    z-index:999;
+}
+    .bg{
+        width:280px;
+        left:50%;
+        margin-left:-140px;
+        top:50%;
+        margin-top:-183.5px;
+
+        -webkit-animation:animations .5s ease-out;
+        -moz-animation:animations .5s ease-out;
+        -o-animation:animations .5s ease-out;
+        -ms-animation:animations .5s ease-out;
+        animation:animations .5s ease-out;
+    }
+
+    @-webkit-keyframes animations{
+    0%{-webkit-transform:scale(0.3);opacity:0;}
+    20%{-webkit-transform:scale(0.6);opacity:1;}
+    80%{-webkit-transform:scale(1.2);}
+    100%{-webkit-transform:scale(1);}
+    }
+
+    @-ms-keyframes animations{
+    0%{-ms-transform:scale(0.3);opacity:0;}
+    20%{-ms-transform:scale(0.6);opacity:1;}
+    80%{-ms-transform:scale(1.2);}
+    100%{-ms-transform:scale(1);}
+    }
+
+    @-o-keyframes animations{
+    0%{-o-transform:scale(0.3);opacity:0;}
+    20%{-o-transform:scale(0.6);opacity:1;}
+    80%{-o-transform:scale(1.2);}
+    100%{-o-transform:scale(1);}
+    }
+
+    @-moz-keyframes animations{
+    0%{-moz-transform:scale(0.3);opacity:0;}
+    20%{-moz-transform:scale(0.6);opacity:1;}
+    80%{-moz-transform:scale(1.2);}
+    100%{-moz-transform:scale(1);}
+    }
+
+    @keyframes animations{
+    0%{transform:scale(0);opacity:0;}
+    20%{transform:scale(0.6);opacity:1;}
+    80%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+    }
+
+    .chai{
+        left:50%;
+        margin-left:-45.5px;
+        bottom:70px;
+        width:91px;
+        height:91px;
+        line-height: 91px;
+        text-align: center;
+        color:white;
+        border-radius: 50%;
+        background-color: #ffbb01;
+    }
+
+    .turn{
+        -webkit-animation:animations2 2.4s linear;
+        -moz-animation:animations2 2.4s linear;
+        -o-animation:animations2 2.4s linear;
+        -ms-animation:animations2 2.4s linear;
+        animation:animations2 2.4s linear;
+    }
+
+    @-webkit-keyframes animations2{
+        0%{-webkit-transform:rotateY(0deg);}
+        100%{-webkit-transform:rotateY(360deg);}
+    }
+    @-moz-keyframes animations2{
+        0%{-moz-transform:rotateY(0deg);}
+        100%{-moz-transform:rotateY(360deg);}
+    }
+    @-o-keyframes animations2{
+        0%{-o-transform:rotateY(0deg);}
+        100%{-o-transform:rotateY(360deg);}
+    }
+    @-ms-keyframes animations2{
+        0%{-ms-transform:rotateY(0deg);}
+        100%{-ms-transform:rotateY(360deg);}
+    }
+    keyframes animations2{
+        0%{transform:rotateY(0deg);}
+        100%{transform:rotateY(360deg);}
+    }
+
+    .char{
+        color:white;
+        top:70px;
+        width: 100%;
+        line-height: 1.5em;
+    }
+    </style>
+</head>
+<body>
+	<div class='tip-layer absolute'>
+        <div class='bg absolute' >
+            <p class='char absolute tac fs-24'>抢到一个大红包<br/>拆开看看吧！</p>
+    		<img src='srcimages/bg.png' width='280px' />
+            <p class='chai absolute'>拆红包</p>
+        </div>
+	</div>
+    <script src="http://w.qiandeer.com/qd/static/lock/assets/zepto.js"></script>
+    <script>
+    $('.chai').one('click',function(){
+        $(this).addClass('turn');
+    })
+    </script>
+</body>
+</html>
