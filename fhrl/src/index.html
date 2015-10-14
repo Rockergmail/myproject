@@ -105,28 +105,80 @@
         0%{transform:rotateY(0deg);}
         100%{transform:rotateY(360deg);}
     }
-
+    .bg2{
+        display: none;
+        width:280px;
+        height:367px;
+        left:50%;
+        margin-left:-140px;
+        top:50%;
+        margin-top:-183.5px;
+        background-color: #de452e;
+        border-radius: 10px;
+        text-align: center;
+    }
     .char{
         color:white;
-        top:70px;
+        top:80px;
         width: 100%;
         line-height: 1.5em;
     }
+    .icon-closex{
+        right:25px;
+        top: 25px;
+    }
+    .head{
+        display: block;
+        margin:23px auto 12px;
+        border:3px solid white;
+        border-radius: 50%;
+    }
+    .cid{margin-bottom: 13px;}
+    .char2{margin-bottom: 24px;}
+    #money{font-size: 44px;margin-bottom: 24px;font-weight: bold;}
+    #getmoney{width:193px;height: 39.5px;line-height: 39.5px; background-color: #ffbb01;margin:0 auto 12px;border-radius: 8px;}
+    .char3{opacity: 0.5;}
     </style>
 </head>
 <body>
 	<div class='tip-layer absolute'>
+
         <div class='bg absolute' >
+            <img class='absolute icon-closex' src='srcimages/close.png' />
             <p class='char absolute tac fs-24'>抢到一个大红包<br/>拆开看看吧！</p>
     		<img src='srcimages/bg.png' width='280px' />
             <p class='chai absolute'>拆红包</p>
+        </div>
+
+        <div class='bg2 absolute' >
+            <img class='head' src='srcimages/head.png' width='100px' height='100px' />
+            <p class='cid fs-12 fc-white'>ID:<span id='client-id'></span></p>
+            <p class='char2 fs-18 fc-white'>福利红包，大吉大利</p>
+            <p id='money' class='fc-white'>10.00</p>
+            <p id='getmoney' class='fs-18 fc-white tac'>拿钱走人</p>
+            <p class='char3 fs-10 fc-white'>已存入钱包，满30元即可提现</p>
         </div>
 	</div>
     <script src="http://w.qiandeer.com/qd/static/lock/assets/zepto.js"></script>
     <script>
     $('.chai').one('click',function(){
         $(this).addClass('turn');
-    })
+        //ajax
+        setTimeout(function(){
+            $('.bg').hide();
+            $('.bg2').show();
+            },1000);
+        });
+
+    $('.icon-closex').click(function(){
+        window.windcalendar.doSomething(102,101,null);
+    });
+
+    $('#getmoney').click(function(){
+        window.windcalendar.doSomething(102,101,null);
+        window.windcalendar.doSomething(103,101,null);
+    });
+
     </script>
 </body>
 </html>
