@@ -1,0 +1,20 @@
+工具的通用问题：
+它是用来解决什么工具（是什么，用来干什么）
+如何用？用在哪里？优点？缺点？它的替代品？
+
+js（ECMAScript\DOM\BOM）
+
+css3（attr & layout system）
+
+html5（new api * new attr）
+
+jq（框架知识）
+
+其他框架(angular.js,react.js,bootstrap)
+
+node.js
+
+了解（先从硬知识开始，再反思）
+
+
+

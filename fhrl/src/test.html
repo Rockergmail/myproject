@@ -1,5 +1,10 @@
+<p id='test'>this is rock</p>
+
 <script>
-var a='id=39&icon=517825932.png';
-var b=encodeURIComponent(a);
-console.log(b);
+
+var oId=document.getElementById('test');
+console.log(oId.nodeType); //1
+console.log(oId.nodeName); //大写的P
+console.log(oId.nodeValue); //null
+
 </script>
