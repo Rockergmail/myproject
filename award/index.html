@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{background:#d71f2e}
+#container{width:854px;height:504px;background-image:url('images/bg1.png');margin:0 auto;margin-top:50%;-webkit-transform:translateY(-252px);position:relative}
+#namelist li{list-style:none;height:36px;background:url('images/user.png') no-repeat 0 11px;margin:0px;padding:0px;line-height:37px;text-indent:1.5em;color:#cc9900;font-weight:bold;}
+#arrow{position:absolute;left:181px;top:104px;}
+#namelist ul{width:120px;position:absolute;right:55px;top:124px;padding:0px;margin:0px;height:324px;overflow:hidden;}
+</style>
+</head>
+<body>
+<div id='container'>
+    <div id='tips'>
+        <img src='images/close.png' id='close' />
+        <span></span>
+    </div>
+    <img src='images/arrow.png' id='arrow' />
+    <div id='namelist'>
+        <ul><li>rocker1</li>
+        <li>rocker2</li>
+        <li>rocker3</li>
+        <li>rocker4</li>
+        <li>rocker5</li>
+        <li>rocker6</li>
+        <li>rocker7</li>
+        <li>rocker8</li>
+        <li>rocker9</li>
+        <li>rocker10</li>
+        <li>rocker11</li>
+        <li>rocker12</li>
+        <li>rocker13</li>
+        <li>rocker14</li>
+        <li>rocker15</li>
+        <li>rocker16</li>
+        <li>rocker17</li>
+        <li>rocker18</li>
+        <li>rocker19</li>
+        <li>rocker20</li></ul>
+    </div>
+</div>
+<script src='scripts/jquery-1.8.3.min.js'></script>
+<script src='scripts/jquery.rotate.min.js'></script>
+<script>
+//how to alert ie<8?
+var oArrow=document.getElementById('arrow'),
+    oTips=document.getElementById('tips'),
+    oSpan=oTips.querySelector('span'),
+    lucknumber=Math.floor((Math.random()*100)%8),
+    results=[
+    {angle:-90,
+     wenzi:'50元喔，恭喜晒'},
+    {angle:-45,
+     wenzi:'30元喔，恭喜晒'},
+    {angle:0,
+     wenzi:'0元喔，恭喜晒'},
+    {angle:45,
+     wenzi:'5元喔，恭喜晒'},
+    {angle:90,
+     wenzi:'1元喔，恭喜晒'},
+    {angle:135,
+     wenzi:'10元喔，恭喜晒'},
+    {angle:180,
+     wenzi:'0元喔，恭喜晒'},
+    {angle:225,
+     wenzi:'20元喔，恭喜晒'},],
+    yourangle=results[lucknumber].angle,
+    yourwenzi=results[lucknumber].wenzi;
+
+function rotateTo(){
+        console.log('you clicked');
+        $(oArrow).rotate({
+            angle:0,
+            duration:5000,
+            animateTo:yourangle+1440,
+            callback:function(){
+             alert(yourwenzi);
+            }
+            })
+        };
+
+
+oArrow.addEventListener('click',rotateTo,false);
+/*
+oArrow.onclick=function(){
+    rotateTo(yourangle,yourwenzi);
+}
+*/
+</script>
+</body>
+</html>

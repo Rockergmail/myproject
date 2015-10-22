@@ -133,11 +133,11 @@
         border:3px solid white;
         border-radius: 50%;
     }
-    .cid{margin-bottom: 10px;}
-    .char2{margin-bottom: 20px;}
-    #money{font-size: 44px;margin-bottom: 20px;font-weight: bold;}
-    #getmoney{width:193px;height: 39.5px;line-height: 39.5px; background-color: #ffbb01;margin:0 auto 18px;border-radius: 8px;}
-    .char3{opacity:0.5;text-decoration:underline;width:193px;margin:0 auto;height:33px;}
+    .cid{margin-bottom: 13px;}
+    .char2{margin-bottom: 24px;}
+    #money{font-size: 44px;margin-bottom: 24px;font-weight: bold;}
+    #getmoney{width:193px;height: 39.5px;line-height: 39.5px; background-color: #ffbb01;margin:0 auto 12px;border-radius: 8px;}
+    .char3{opacity: 0.5;}
     </style>
 </head>
 <body>
@@ -156,7 +156,7 @@
             <p class='char2 fs-18 fc-white'>福利红包，大吉大利</p>
             <p id='money' class='fc-white'>10.00</p>
             <p id='getmoney' class='fs-18 fc-white tac'>拿钱走人</p>
-            <p class='char3 fs-12 fc-white'>&gt;&gt;点击查看兑现规则&lt;&lt;</p>
+            <p class='char3 fs-10 fc-white'>已存入钱包，满30元即可提现</p>
         </div>
 	</div>
     <script src="http://w.qiandeer.com/qd/static/lock/assets/zepto.js"></script>
@@ -171,19 +171,13 @@
         });
 
     $('.icon-closex').click(function(){
-        //关闭客户端的webview
         window.windcalendar.doSomething(102,101,null);
     });
 
     $('#getmoney').click(function(){
-        //传输金额到客户端
         window.windcalendar.doSomething(103,102,null);
     });
 
-    $('.char3').click(function(){
-        //跳转到兑换规则
-        window.windcalendar.doSomething(104,102,null);
-        });
     </script>
 </body>
 </html>
