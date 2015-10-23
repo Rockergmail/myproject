@@ -15,9 +15,21 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    -webkit-transform: translateZ(0);
     }
-    
+    /*
+    .bg{
+        width:280px;
+        height:367px;
+        left:50%;
+        margin-left:-140px;
+        top:50%;
+        margin-top:-183.5px;
+        background:url('srcimages/bg.png');
+        border-radius:10px;
+        -webkit-animation:animations .5s ease-out;
+        animation:animations .5s ease-out;
+    }
+    */
     .bg{
         background:url('srcimages/bg.png');
         border-radius:10px;
@@ -42,18 +54,28 @@
     80%{transform:scale(1.2);}
     100%{transform:scale(1);}
     }
+
+    /*
     .chai{
-        margin:0 auto;
-        border-radius:50%;
-        margin-top:60px;
+        left:50%;
+        margin-left:-45.5px;
+        bottom:70px;
         width:91px;
         height:91px;
         line-height: 91px;
-        display:block;
-        -webkit-transform: translateZ(0); 
+        text-align: center;
+        color:white;
+        border-radius: 50%;
         background-color: #ffbb01;
-        /*解决css动画和postion为absolute/relative一起用会导致渲染出问题*/
-        /*对该元素的渲染进行硬件加速，通过GPU来处理*/
+    }
+    */
+    .chai{
+        margin:0 auto;
+        border-radius:50%;
+        margin-top:40px;
+        width:91px;
+        height:91px;
+        display:block;
     }
 
     .turn{
@@ -63,11 +85,13 @@
 
     @-webkit-keyframes animations2{
         0%{-webkit-transform:rotateY(0deg);}
-        100%{-webkit-transform:rotateY(360deg);}
+        99%{-webkit-transform:rotateY(360deg);}
+        100%{background-color:rgba(0,0,0,.8);}
     }
     @keyframes animations2{
         0%{transform:rotateY(0deg);}
-        100%{transform:rotateY(360deg);}
+        99%{transform:rotateY(360deg);}
+        100%{background-color:rgba(0,0,0,.8);}
     }
     .bg2{
         display: none;
@@ -109,7 +133,7 @@
         <div class='bg ' >
             <img class='absolute icon-closex' src='srcimages/close.png' />
             <p class='char tac fs-24'>抢到一个大红包<br/>拆开看看吧！</p>
-            <p class='chai tac'>拆红包</p>
+            <img class='chai' src='srcimages/download.png' />
         </div>
        <div class='bg2 absolute' >
             <img class='head' src='srcimages/head.png' width='100px' height='100px' />
@@ -125,10 +149,11 @@
   //  $('.chai').one('click',function(){
       $('.chai').click(function(){
         $(this).addClass('turn');
-               //ajax
+        $('.tip-layer').css('background-color','rgba(0,0,0,.81)');
+        //ajax
         setTimeout(function(){
-            $('.bg').hide();
-            $('.bg2').show();
+        //    $('.bg').hide();
+        //    $('.bg2').show();
             },1000);
         });
 
@@ -150,6 +175,7 @@ function test(){
     
 }
 
+    $('.tip-layer').css('background-color','rgba(0,0,0,.82)');
     </script>
 </body>
 </html>

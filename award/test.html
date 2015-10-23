@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+</style>
+</head>
+<body>
+<input type='button' />
+<script>
+
+function once(fn,context){
+    var result;
+    return function(){
+    if(fn){
+        result=fn.apply(context || this,arguments);
+        console.log(i)
+        fn=null;
+    }else{
+        alert('you have done it');
+    }
+    return result;
+    }
+}
+
+var input=document.querySelector('input');
+
+var temp=once(function(){console.log('you do it first')});
+
+input.addEventListener('click',temp);
+
+//逻辑：条件-->第一次做什么/第二次以后做什么-->如果只是一个函数，里面的变量没能保存-->闭包
+</script>
+</body>
+</html>

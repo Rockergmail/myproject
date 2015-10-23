@@ -2,11 +2,13 @@
 <html>
 <head>
 <style>
-body{background:#d71f2e}
-#container{width:854px;height:504px;background-image:url('images/bg1.png');margin:0 auto;margin-top:50%;-webkit-transform:translateY(-252px);position:relative}
+body{background:#d71f2e;}
+#container{width:854px;height:504px;background-image:url('images/bg1.png');margin:0 auto;margin-top:-252px;top:50%;position:absolute;left:0px;right:0px;}
 #namelist li{list-style:none;height:36px;background:url('images/user.png') no-repeat 0 11px;margin:0px;padding:0px;line-height:37px;text-indent:1.5em;color:#cc9900;font-weight:bold;}
 #arrow{position:absolute;left:181px;top:104px;}
 #namelist ul{width:120px;position:absolute;right:55px;top:124px;padding:0px;margin:0px;height:324px;overflow:hidden;}
+#tips{width:500px;height;300px;text-align:center;line-height:300px;background:rgba(0,0,0,.8);position:absolute;z-index:999;left:15%;top:20%;color:white;display:none;}
+#close{display:block;position:absolute;right:20px;top:20px;}
 </style>
 </head>
 <body>
@@ -43,8 +45,11 @@ body{background:#d71f2e}
 <script src='scripts/jquery.rotate.min.js'></script>
 <script>
 //how to alert ie<8?
+
+
 var oArrow=document.getElementById('arrow'),
     oTips=document.getElementById('tips'),
+    oClose=document.getElementById('close');
     oSpan=oTips.querySelector('span'),
     lucknumber=Math.floor((Math.random()*100)%8),
     results=[
@@ -65,27 +70,78 @@ var oArrow=document.getElementById('arrow'),
     {angle:225,
      wenzi:'20元喔，恭喜晒'},],
     yourangle=results[lucknumber].angle,
-    yourwenzi=results[lucknumber].wenzi;
+    yourwenzi=results[lucknumber].wenzi,
+    oFin=false;
 
-function rotateTo(){
+function once(fn,context){
+    var result,count=0;
+    return function(){
+        if(fn){
+            result=fn.apply(context || this , arguments);
+            fn=null;
+}
+        else{
+            errormsg='你已经点过啦';
+            oSpan.innerHTML=errormsg;
+            if(oFin)   oSpan.innerHTML=errormsg+'\n'+yourwenzi;
+            oTips.style.display='block';
+}
+        return result;
+}
+}
+
+function rotateTo(angle,wenzi){
         console.log('you clicked');
         $(oArrow).rotate({
             angle:0,
             duration:5000,
-            animateTo:yourangle+1440,
+            animateTo:angle+1440,
             callback:function(){
-             alert(yourwenzi);
+                oSpan.innerHTML=wenzi;
+                oTips.style.display='block';
+                oFin=true;
             }
             })
         };
 
-
-oArrow.addEventListener('click',rotateTo,false);
-/*
-oArrow.onclick=function(){
+var defineme=once(function(){
     rotateTo(yourangle,yourwenzi);
+});
+/*
+oArrow.addEventListener('click',defineme,false);
+
+oClose.addEventListener('click',function(){
+    oTips.style.display='none';
+},false);
+*/
+oArrow.onclick=defineme;
+
+oClose.onclick=function(){
+    oTips.style.display='none';
+};
+
+var count=0;
+var yourjson;
+/*
+function loadData() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+     console.log(xhttp.responseText);
+    }
+  }
+  xhttp.open("post",'http://www.luck.com/index.php', true);
+  xhttp.send(count);
 }
 */
+function doSomething(){
+    console.log(yourjson);
+}
+setInterval(function(){
+var script=document.createElement('script');
+script.src='http://www.luck.com/index.php?&count='+count;
+document.body.appendChild(script);
+;count++},3000);
 </script>
 </body>
 </html>

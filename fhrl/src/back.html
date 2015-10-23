@@ -8,25 +8,20 @@
     <style>
     body{background-color:transparent;}
     .tip-layer {
-    background:rgba(0,0,0,.8);
+    background:rgba(255,0,0,.8);
     width:100%;
     height: 100%;
     overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    -webkit-transform: translateZ(0);
     }
-    
     .bg{
-        background:url('srcimages/bg.png');
-        border-radius:10px;
+        width:280px;
+        left:50%;
+        margin-left:-140px;
+        top:50%;
+        margin-top:-183.5px;
+
         -webkit-animation:animations .5s ease-out;
         animation:animations .5s ease-out;
-        width:280px;
-        height:367px;
-        overflow:hidden;
-        position:relative;
     }
 
     @-webkit-keyframes animations{
@@ -42,22 +37,25 @@
     80%{transform:scale(1.2);}
     100%{transform:scale(1);}
     }
+
     .chai{
-        margin:0 auto;
-        border-radius:50%;
-        margin-top:60px;
+        left:50%;
+        margin-left:-45.5px;
+        bottom:70px;
         width:91px;
         height:91px;
         line-height: 91px;
-        display:block;
-        -webkit-transform: translateZ(0); 
+        text-align: center;
+        color:white;
+        border-radius: 50%;
         background-color: #ffbb01;
-        /*解决css动画和postion为absolute/relative一起用会导致渲染出问题*/
-        /*对该元素的渲染进行硬件加速，通过GPU来处理*/
     }
 
     .turn{
         -webkit-animation:animations2 2.4s linear;
+        -moz-animation:animations2 2.4s linear;
+        -o-animation:animations2 2.4s linear;
+        -ms-animation:animations2 2.4s linear;
         animation:animations2 2.4s linear;
     }
 
@@ -83,7 +81,7 @@
     }
     .char{
         color:white;
-        margin-top:80px;
+        top:80px;
         width: 100%;
         line-height: 1.5em;
     }
@@ -105,11 +103,12 @@
     </style>
 </head>
 <body>
-<div class='tip-layer relative'>
-        <div class='bg ' >
+    <div class='tip-layer absolute'>
+        <div class='bg absolute' >
             <img class='absolute icon-closex' src='srcimages/close.png' />
-            <p class='char tac fs-24'>抢到一个大红包<br/>拆开看看吧！</p>
-            <p class='chai tac'>拆红包</p>
+            <p class='char absolute tac fs-24'>抢到一个大红包<br/>拆开看看吧！</p>
+    		<img src='srcimages/bg.png' width='280px' />
+            <p class='chai absolute'>拆红包</p>
         </div>
        <div class='bg2 absolute' >
             <img class='head' src='srcimages/head.png' width='100px' height='100px' />
@@ -122,13 +121,12 @@
 	</div>
     <script src="http://w.qiandeer.com/qd/static/lock/assets/zepto.js"></script>
     <script>
-  //  $('.chai').one('click',function(){
-      $('.chai').click(function(){
+    $('.chai').one('click',function(){
         $(this).addClass('turn');
-               //ajax
+        //ajax
         setTimeout(function(){
-            $('.bg').hide();
-            $('.bg2').show();
+        //    $('.bg').hide();
+        //    $('.bg2').show();
             },1000);
         });
 
@@ -146,10 +144,6 @@
         //跳转到兑换规则
         window.windcalendar.doSomething(104,102,null);
         });
-function test(){
-    
-}
-
     </script>
 </body>
 </html>
