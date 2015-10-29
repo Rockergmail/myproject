@@ -20,7 +20,8 @@ body{background:#d71f2e;}
     </div>
     <img src='images/arrow.png' id='arrow' />
     <div id='namelist'>
-        <ul><li>rocker1</li>
+        <ul>
+        <li>rocker1</li>
         <li>rocker2</li>
         <li>rocker3</li>
         <li>rocker4</li>
@@ -30,16 +31,7 @@ body{background:#d71f2e;}
         <li>rocker8</li>
         <li>rocker9</li>
         <li>rocker10</li>
-        <li>rocker11</li>
-        <li>rocker12</li>
-        <li>rocker13</li>
-        <li>rocker14</li>
-        <li>rocker15</li>
-        <li>rocker16</li>
-        <li>rocker17</li>
-        <li>rocker18</li>
-        <li>rocker19</li>
-        <li>rocker20</li></ul>
+        </ul>
     </div>
 </div>
 <script src='scripts/jquery-1.8.3.min.js'></script>
@@ -74,7 +66,9 @@ var oArrow=document.getElementById('arrow'),
      wenzi:'20元喔，恭喜晒'},],
     yourangle=results[lucknumber].angle,
     yourwenzi=results[lucknumber].wenzi,
-    oFin=false;
+    oFin=false,count=0,count2=0;
+
+    var xxx=nlRobin();
 
 function once(fn,context){
     var result,count=0;
@@ -107,65 +101,49 @@ function rotateTo(angle,wenzi){
             })
         };
 
-var defineme=once(function(){
-    rotateTo(yourangle,yourwenzi);
-});
-
-oArrow.onclick=defineme;
-
-oClose.onclick=function(){
-    oTips.style.display='none';
-};
-
-var count=0,count2=0;
-var yourjson;
-/*
-function loadData() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState == 4 && xhttp.status == 200) {
-     console.log(xhttp.responseText);
-    }
-  }
-  xhttp.open("post",'http://www.luck.com/index.php', true);
-  xhttp.send(count);
-}
-*/
-function doSomething(){
-    console.log(yourjson);
-}
-
 function getData(){
-var script=document.createElement('script');
-script.src='http://www.luck.com/index.php?&count='+count;
-document.body.appendChild(script);
-count++}
+    var script=document.createElement('script');
+    script.src='http://www.luck.com/index.php?callback=jsonpResult&count='+count;
+    document.body.appendChild(script);
+}
+
+function jsonpResult(data){
+    var newFragment=document.createDocumentFragment();
+    for(var i=0;i<data.length;i++){
+        var newLi=document.createElement('li');
+        newLi.innerHTML=data[i];
+        newFragment.appendChild(newLi);
+    };
+    oUl.appendChild(newFragment);
+    count++;
+}
 
 //namelist robin
-
-setInterval(function(){
-        /*
-        var oSpeed=2;
-        count2++;
-        var oTarget=-oLiHeight*count2;
-     //   console.log(oTarget);
-        var animationTimer=setInterval(function(){
-            while(oUl.offsetTop<oTarget){
-            oUl.style.top=oUl.offsetTop-oSpeed+'px';
-                console.log(oUl.offsetTop);
-            }
-            },36);
-        setTimeout(function(){
-            animationTimer=null;
-            },1000);
-            */
-        oUl.style.top=-oLiHeight*count2+'px';
-        if(count%10==0){
-            getData();
-            var somethingNew=document.create
-        }
-        count2++;
-        },500);
+function nlRobin(){
+    var namelistRobin=setInterval(function(){
+                /*
+                var oSpeed=2;
+                count2++;
+                var oTarget=-oLiHeight*count2;
+             //   console.log(oTarget);
+                var animationTimer=setInterval(function(){
+                    while(oUl.offsetTop<oTarget){
+                    oUl.style.top=oUl.offsetTop-oSpeed+'px';
+                        console.log(oUl.offsetTop);
+                    }
+                    },36);
+                setTimeout(function(){
+                    animationTimer=null;
+                    },1000);
+                    */
+                oUl.style.top=-oLiHeight*count2+'px';
+                if(count2%10==0){  //条件触发jsonp
+                    getData();
+                }
+                count2++;
+                },500);
+    return namelistRobin;
+}
 
 //中奖算法
 function getAward(){
@@ -181,15 +159,38 @@ for(var ki=0;ki<awards.length;ki++){
     if(startFrom<lucky && lucky<=(awards[ki]*total+startFrom)){
         if(ki==0){
             var lucky2=Math.random().toFixed(3);
-
-        }
+                    }
         return ki+1;
     }
     startFrom=awards[ki]*total+startFrom;
 }
 }
 
-//setInterval(function(){var dogshitluck=getAward();if(dogshitluck)alert('bingo'+dogshitluck);else console.log('noluck')},1000);
+var defineme=once(function(){
+    rotateTo(yourangle,yourwenzi);
+});
+
+oArrow.onclick=defineme;
+
+oClose.onclick=function(){
+    oTips.style.display='none';
+};
+
+if(count==0) {xxx=null;console.log('5 ready')}
+/*
+function loadData() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+     console.log(xhttp.responseText);
+    }
+  }
+  xhttp.open("post",'http://www.luck.com/index.php', true);
+  xhttp.send(count);
+}
+*/
+
+
 
 </script>
 </body>
