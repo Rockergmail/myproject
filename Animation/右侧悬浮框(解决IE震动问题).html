@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#base100{
+	width:1px;
+	height:300px;
+	position:absolute;
+	left:100px;
+	top:0px;
+	background:black;
+}
+#base300{
+	width:1px;
+	height:300px;
+	position:absolute;
+	left:300px;
+	top:0px;
+	background:black;
+}
+#thisDiv{
+	width:200px;
+	height:100px;
+	background:lightblue;
+	position:absolute;
+	/*右下角可以用fixed啊，挺好的。*/
+	right:0px;
+	bottom:0px;
+}
+body{
+	height:5000px;
+}
+</style>
+<script>
+//document.documentElement.scrollTop是可视窗口距离网页顶部的高度
+//document.documentElement.clientHeight是可视窗口的高度
+
+window.onscroll=function(){
+//注意是onscroll
+	var oDiv=document.getElementById("thisDiv");
+	var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+	//兼容性问题	
+	fMove(document.documentElement.clientHeight-oDiv.offsetHeight+scrollTop);
+};
+//向下拖动的时候，IE会震动，垃圾内核的原因呗，但是要解决
+//就让他滚滚下来
+
+	var oTimer=null;
+	var iSpeed;
+	
+	
+
+function fMove(iTarget){
+		var oDiv=document.getElementById("thisDiv");
+		clearInterval(oTimer);
+		oTimer=setInterval(function(){
+			iSpeed=(iTarget-oDiv.offsetTop)/7;
+			iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(iTarget==oDiv.offsetTop)
+			//if(Math.abs(iTarget-oDiv.offsetTop)<=0)
+				clearInterval(oTimer);
+			else
+				oDiv.style.top=oDiv.offsetTop+iSpeed+"px";
+				document.title="t:"+iTarget+"top"+oDiv.offsetTop+"s:"+iSpeed;
+		},30);
+	}
+</script>
+</head>
+<body>
+
+<div id="thisDiv"></div>
+
+</body>
+</html>

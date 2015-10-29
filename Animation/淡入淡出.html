@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+
+img{
+	opacity:0.5;
+	alpha(opacity=50);
+	-moz-opacity:0.5;
+}
+</style>
+<script>
+window.onload=function(){
+	var oImg=document.getElementById("thisImg");
+	var oTimer=null;
+	var opacity=50; 
+	function fMenu(iLimit){
+		
+		var iSpeed;
+		if(iLimit>opacity)
+			iSpeed=10;
+		else
+			iSpeed=-10;
+		
+		clearInterval(oTimer);
+		oTimer=setInterval(function(){
+		if(opacity==iLimit){
+			clearInterval(oTimer);
+			}
+		else
+			opacity+=iSpeed;
+			oImg.style.opacity=opacity/100;
+			oImg.style.filter="alpha(opacity:"+opacity+")";
+
+	},30);
+}
+
+	oImg.onmouseover=function(){
+		fMenu(100);
+	}
+	oImg.onmouseout=function(){
+		fMenu(50);
+	}
+};
+	
+	
+</script>
+</head>
+<body>
+<img id="thisImg" src="images/2.jpg" />
+</div>
+</body>
+</html>

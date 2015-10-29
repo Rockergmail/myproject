@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#wrapper{
+	width:800px;
+	height:108px;
+	background-color:gray;
+	margin:0 auto;
+	position:relative;
+	overflow:hidden;
+}
+ul{
+	position:absolute;
+}
+li{
+	float:left;
+	list-style:none;
+}
+li:hover{
+	padding-top:1px;
+}
+img{
+	display:block;
+	float:left;
+}
+</style>
+<script>
+window.onload=function(){
+	var oUl=document.getElementById("myUl");
+	var oWrapper=document.getElementById("wrapper");
+	var oLi=document.getElementsByTagName("li");
+	var iSpeed=-2;
+	var iCounter=0;
+	var oTimer=null;
+	oWrapper.style.width=oLi[0].offsetWidth*oLi.length+"px";
+	oUl.innerHTML+=oUl.innerHTML;
+	oUl.style.width=oLi[0].offsetWidth*oLi.length+"px";
+	
+	
+	function fPause(){
+	if(iCounter%oLi[0].offsetWidth==0){
+		
+			iCounter=0;
+			clearInterval(oTimer);
+			setTimeout(function(){oTimer=setInterval(move,1);},1000);
+		}
+		};
+	
+	function move(){
+		iCounter+=iSpeed; 
+		
+		if(oUl.offsetLeft<=-oUl.offsetWidth/2 && iSpeed<0)
+		oUl.style.left=0+"px";
+		
+		if(oUl.offsetLeft>=0 && iSpeed>0)
+		oUl.style.left=-oUl.offsetWidth/2+"px";
+		
+		
+		oUl.style.left=oUl.offsetLeft+iSpeed+"px";
+		
+		fPause();
+		
+	};
+	oTimer=setInterval(move,1);	
+};
+	
+	
+	
+</script>
+</head>
+<body>
+<div id="wrapper">
+<ul id="myUl">
+<li><img src="images/1.jpg" /></li>
+<li><img src="images/2.jpg" /></li>
+<li><img src="images/3.jpg" /></li>
+<li><img src="images/4.jpg" /></li>
+</ul>
+</div>
+</body>
+</html>

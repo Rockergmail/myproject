@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#base100{
+	width:1px;
+	height:300px;
+	position:absolute;
+	left:100px;
+	top:0px;
+	background:black;
+}
+#base300{
+	width:1px;
+	height:300px;
+	position:absolute;
+	left:300px;
+	top:0px;
+	background:black;
+}
+#thisDiv{
+	width:200px;
+	height:100px;
+	background:lightblue;
+	position:absolute;
+	/*右下角可以用fixed啊，挺好的。*/
+	right:0px;
+	bottom:0px;
+}
+body{
+	height:5000px;
+}
+</style>
+<script>
+//document.documentElement.scrollTop是可视窗口距离网页顶部的高度
+//document.documentElement.clientHeight是可视窗口的高度
+
+window.onscroll=function(){
+//注意是onscroll
+	var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+	//兼容性问题
+	var oDiv=document.getElementById("thisDiv");
+	
+	oDiv.style.top=document.documentElement.clientHeight-oDiv.offsetHeight+scrollTop+"px";
+}
+//向下拖动的时候，IE会震动，垃圾内核的原因呗，但是要解决
+//就让他滚滚下来
+
+	var timer=null;
+	
+</script>
+</head>
+<body>
+
+<div id="thisDiv"></div>
+
+</body>
+</html>

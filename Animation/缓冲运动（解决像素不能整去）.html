@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#base100{
+	width:1px;
+	height:300px;
+	position:absolute;
+	left:100px;
+	top:0px;
+	background:black;
+}
+#base300{
+	width:1px;
+	height:300px;
+	position:absolute;
+	left:300px;
+	top:0px;
+	background:black;
+}
+#thisDiv{
+	width:50px;
+	height:50px;
+	background:lightblue;
+	position:absolute;
+/*	left:600px; */
+}
+</style>
+<script>
+window.onload=function(){
+	var oBtn=document.getElementById("thisBtn");
+	var oDiv=document.getElementById("thisDiv");
+	var oTimer=null;
+	var iSpeed;
+	
+	oBtn.onclick=function(){
+		fMove(100);
+	}
+	function fMove(iTarget){
+		clearInterval(oTimer);
+		oTimer=setInterval(function(){
+		//因为一个像素是最小的单位了，如果算到一个小数，就会向下取
+				//iSpeed=Math.ceil((iTarget-oDiv.offsetLeft)/5);
+				iSpeed=iSpeed>0?Math.ceil((iTarget-oDiv.offsetLeft)/5):Math.floor((iTarget-oDiv.offsetLeft)/5);
+				//从左到右争取右，所以向上取
+				//从右到左争取左，所以向下取
+
+			if(oDiv.offsetLeft==iTarget)
+				clearInterval(oTimer);
+			else	
+				oDiv.style.left=oDiv.offsetLeft+iSpeed+"px";
+				document.title=oDiv.offsetLeft+','+iSpeed;
+					
+					/*
+					if(Math.abs(oDiv.offsetLeft-iTarget)<iSpeed)
+						oDiv.style.left=iTarget+"px";
+						*/
+		},30);
+	}
+	
+}
+</script>
+</head>
+<body>
+<input type="button" id="thisBtn" value="MOVE" />
+<div id="thisDiv"></div>
+<div id="base100"></div>
+<div id="base300"></div>
+
+</body>
+</html>

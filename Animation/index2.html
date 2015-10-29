@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#wrapper{
+	width:800px;
+	height:108px;
+	background-color:gray;
+	margin:0 auto;
+	position:relative;
+	overflow:hidden;
+}
+ul{
+	position:absolute;
+}
+li{
+	float:left;
+	list-style:none;
+}
+li:hover{
+	padding-top:1px;
+}
+img{
+	display:block;
+	float:left;
+}
+</style>
+<script>
+window.onload=function(){
+	var oUl=document.getElementById("myUl");
+	var oWrapper=document.getElementById("wrapper");
+	var oLi=document.getElementsByTagName("li");
+	var iSpeed=-2;
+	var iCounter=0;
+	var oTimer=null;
+	oWrapper.style.width=oLi[0].offsetWidth*oLi.length+"px";
+	oUl.innerHTML+=oUl.innerHTML;
+	oUl.style.width=oLi[0].offsetWidth*oLi.length+"px";
+	//如果用ul长度*2，会不够�?
+	//停止函数
+	function fPause(){
+	if(iCounter%oLi[0].offsetWidth==0){
+		//很好用的取余
+			iCounter=0;
+			clearInterval(oTimer);
+			setTimeout(function(){oTimer=setInterval(move,1);},1000);
+			//有一个小问题：就是计算出来的icounter要等于！注意是等于li[0]的长度，否则每次都会
+		}
+		};
+	//移动函数
+	function move{
+		iCounter+=iSpeed; //计数器，如果超过一个li的长度就�?
+		//gotoleft
+		if(oUl.offsetLeft<=-oUl.offsetWidth/2 && iSpeed<0)
+		oUl.style.left=0+"px";
+		//gotoright
+		if(oUl.offsetLeft>=0 && iSpeed>0)
+		oUl.style.left=-oUl.offsetWidth/2+"px";
+		//注意数字的正负�?
+		
+		oUl.style.left=oUl.offsetLeft+iSpeed+"px";
+		
+		fPause();
+		
+	};
+	oTimer=setInterval(move,1);
+	var oA=document.getElementsByTagName("a");
+	oA[0].onclick=function(){
+	clearInterval(oTimer);
+	oTimer=setInterval(move(-2),1);};
+	
+	oA[1].onmouseover=function(){
+	clearInterval(oTimer);
+	oTimer=setInterval(move(2),1);};
+	
+};
+	
+	
+	//意味着，加载解释JS的时候，如果出现alert它会忽略�?
+</script>
+</head>
+<body>
+<a href="">LEFT</a>
+<a href="">RIGHT</a>
+<div id="wrapper">
+<ul id="myUl">
+<li><img src="images/1.jpg" /></li>
+<li><img src="images/2.jpg" /></li>
+<li><img src="images/3.jpg" /></li>
+<li><img src="images/4.jpg" /></li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#wrapper{
+	width:800px;
+	height:110px;
+	background-color:yellow;
+	margin:0 auto;
+	position:relative;
+	overflow:hidden;
+}
+ul{
+	position:absolute;
+}
+li{
+	float:left;
+	list-style:none;
+}
+li:hover{
+	padding-top:1px;
+}
+img{
+	display:block;
+	float:left;
+	width:178px;
+}
+</style>
+<script>
+	
+	var iSpeed=5;
+	var iCounter=0;
+	var oTimer=null;
+	var oUl,oWrapper,oLi,oA,oSelect1,oSelect2;
+	var bPause=true,iPause=1000;
+	
+window.onload=function(){
+	oUl=document.getElementById("myUl");
+	oWrapper=document.getElementById("wrapper");
+	oLi=document.getElementsByTagName("li");
+	oA=document.getElementsByTagName("a");
+	oSelect1=document.getElementById("pause_time");
+	oSelect2=document.getElementById("sel_time");
+	
+	oWrapper.style.width=oLi[0].offsetWidth*oLi.length+"px";
+	oUl.innerHTML+=oUl.innerHTML;
+	oUl.style.width=oLi[0].offsetWidth*oLi.length+"px";
+	start();
+	
+	document.getElementById("thisID").onclick=function(){
+	bPause=document.getElementById("thisID").checked;
+	}
+	oA[0].onmouseover=function(){
+	stop();
+	iSpeed=-Math.abs(iSpeed);
+	};
+	oA[0].onmouseout=function(){
+	start();};
+	
+	oA[1].onmouseover=function(){
+	stop();
+	iSpeed=Math.abs(iSpeed);
+	;}
+	oA[1].onmouseout=function(){
+	start();};
+	
+	oSelect1.onchange=function(){
+		iPause=parseInt(this.value);
+	}
+	
+	oSelect2.onchange=function(){
+		iSpeed=parseInt(this.value);
+	}
+	
+};
+	
+	function fPause(){
+		if(bPause)	
+		if(Math.abs(oUl.offsetLeft-Math.round(oUl.offsetLeft/oLi[0].offsetWidth)*oLi[0].offsetWidth)<Math.ceil(iSpeed/2)){
+			//if(Math.abs(oUl.offsetLeft-Math.floor(oUl.offsetLeft/oLi[0].offsetWidth)*oLi[0].offsetWidth)<Math.abs(iSpeed)){
+			//数据的正负,要留意
+			stop();
+			oTimerout=setTimeout(function(){start();},iPause);
+			oUl.style.left=Math.round(oUl.offsetLeft/oLi[0].offsetWidth)*oLi[0].offsetWidth+"px";
+			
+		}
+		};
+	
+	function start(){
+		if(oTimer){
+			clearInterval(oTimer);
+		}
+		oTimer=setInterval(move,30);
+	}
+	
+	function stop(){
+		clearInterval(oTimer);
+		oTimer=null;
+	}
+	
+	function move(){
+		
+		if(oUl.offsetLeft<=-oUl.offsetWidth/2 && iSpeed<0)
+		oUl.style.left=0+"px";
+		
+		if(oUl.offsetLeft>=0 && iSpeed>0)
+		oUl.style.left=-oUl.offsetWidth/2+"px";
+				
+		oUl.style.left=oUl.offsetLeft+iSpeed+"px";	
+		
+		fPause();
+		
+		//也就是说，计时器的效果是在执行完一遍再计时的
+		//无论是clear还是set,其实就是说不会因为有计时器，就会暂停后面的语句
+		
+		//注意自己是逻辑错误，还是语法，数据的错误，不要一直盲目地尝试
+		
+		//先细分逻辑，再分函数来调用。
+	};
+	
+</script>
+</head>
+<body>
+<div>
+	<label><input type="checkbox" checked="true" id="thisID">stop_int</label>
+	<select id="pause_time">
+		<option value="100">short</option>
+		<option value="1000" selected="true">mid</option>
+		<option value="3000">long</option>
+	</select>
+	speed:
+	<select id="sel_time">
+		<option value="2">slow</option>
+		<option value="5">mid</option>
+		<option value="10">fast</option>
+	</select>
+</div>
+<a href="">LEFT</a>
+<a href="">RIGHT</a>
+<div id="wrapper">
+<ul id="myUl">
+<li><img src="images/1.jpg" /></li>
+<li><img src="images/2.jpg" /></li>
+<li><img src="images/3.jpg" /></li>
+<li><img src="images/4.jpg" /></li>
+</ul>
+</div>
+</body>
+</html>

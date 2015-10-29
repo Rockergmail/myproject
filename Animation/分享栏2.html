@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+
+div{
+	width:300px;
+	height:200px;
+	position:fixed;
+	left:-300px;
+	top:240px;
+	background:yellow;
+}
+
+div span{
+	right:-20px;
+	top:70px;
+	height:60px;
+	width:20px;
+	position:absolute;
+	background:lightblue;
+}
+</style>
+<script>
+//通过absolute来定位，父元素的鼠标事件，指到子元素，也会生效。
+//这种情况的话鼠标移入的时候，会发生两次over一次out
+window.onload=function(){
+	var oDiv=document.getElementById("thisDiv");
+	var oTimer=null;
+	function fMenu(iLimit){
+	//函数参数越少越好
+		console.log(iLimit);
+		
+		var iSpeed;
+		if(iLimit>oDiv.offsetLeft)
+			iSpeed=10;
+		else
+			iSpeed=-10;
+		
+		clearInterval(oTimer);
+		oTimer=setInterval(function(){
+		if(oDiv.offsetLeft==iLimit){
+			clearInterval(oTimer);
+			}
+		else
+			oDiv.style.left=oDiv.offsetLeft+iSpeed+"px";
+	},30);
+}
+
+	oDiv.onmouseover=function(){
+		fMenu(0);
+	}
+	oDiv.onmouseout=function(){
+		fMenu(-300);
+		//如果非整数呢？就是说条件是>呢？
+	}
+};
+	
+	
+</script>
+</head>
+<body>
+<div id="thisDiv">
+<span>分享到</span>
+</div>
+</body>
+</html>
