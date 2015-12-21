@@ -66,9 +66,7 @@ var oArrow=document.getElementById('arrow'),
      wenzi:'20元喔，恭喜晒'},],
     yourangle=results[lucknumber].angle,
     yourwenzi=results[lucknumber].wenzi,
-    oFin=false,count=0,count2=0;
-
-    var xxx=nlRobin();
+    oFin=false,count=0,count2=0,oTimer=null;
 
 function once(fn,context){
     var result,count=0;
@@ -120,7 +118,6 @@ function jsonpResult(data){
 
 //namelist robin
 function nlRobin(){
-    var namelistRobin=setInterval(function(){
                 /*
                 var oSpeed=2;
                 count2++;
@@ -141,9 +138,9 @@ function nlRobin(){
                     getData();
                 }
                 count2++;
-                },500);
-    return namelistRobin;
+                if(count2==5) {clearInterval(oTimer);console.log('5 ready')}
 }
+
 
 //中奖算法
 function getAward(){
@@ -176,7 +173,7 @@ oClose.onclick=function(){
     oTips.style.display='none';
 };
 
-if(count==0) {xxx=null;console.log('5 ready')}
+oTimer=setInterval(nlRobin,500);
 /*
 function loadData() {
   var xhttp = new XMLHttpRequest();

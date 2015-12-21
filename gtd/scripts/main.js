@@ -5,6 +5,8 @@ var oAddMission=document.getElementById('add-miss');
 var oDelMission=document.getElementById('del-miss');
 var oMark=[$('#markall'),$('#markyet'),$('#markdone')];
 
+//-------------genernal method--------------
+
 //getElementByClassName
 function byClass(cname,tagname){
 	cname=(cname.indexOf('.')==0)?cname.substring(1):cname;
@@ -44,6 +46,7 @@ function $(args){
 	}
 }
 
+//----------------Col 1 Functions--------------------
 //add catagories 
 function addCata(parent,id){
 	var oInput=$('input');
@@ -59,8 +62,7 @@ function addCata(parent,id){
 		}
 		else{
 			if(parent.id=='cl')	oLi.innerHTML=oInput.value+'<span></span><ul></ul>';
-			/********************HERE IS A BIG BUG*********************/
-			else oLi.innerHTML=oInput.value;
+			else oLi.innerHTML=oInput.value+' (<span id='+id+'-'+oInput.value+'-'+'count>0</span>)';
 			// id management
 			if($('#'+id+'-'+oInput.value)){
 				parent.removeChild(oLi);
@@ -85,11 +87,11 @@ function addCata(parent,id){
 
 //when add new node , update their function
 function addNew(){
-for(var i=0;i<oCata.children.length;i++){
-	 oCata.children[i].onclick=function(){
-	 	addCata(this.children[1],this.id);
-	 	return false;
-	 }
+	for(var i=0;i<oCata.children.length;i++){
+		 oCata.children[i].onclick=function(){
+		 	addCata(this.children[1],this.id);
+		 	return false;
+		 }
 	 for(var h=0;h<oCata.children[i].children[1].children.length;h++){
 	 	oCata.children[i].children[1].children[h].onclick=function(event){
 	 			console.log(this);
@@ -108,13 +110,16 @@ for(var i=0;i<oCata.children.length;i++){
 }
 }
 
-//check if the finish btn exist
-function finishExist(){
-	if($('#finish').style.display=='block'){
-		$('#finish').onclick();
-	}
+function missionCount(){
+	var licount=$('#sort').getElementsByTagName('li').length;
+	$('#all-mission').innerHTML=licount;
+
+	var licount2=byClass('div-active')[0].getElementsByTagName('li').length;
+	$('#'+byClass('cata-active')[0].id+'-count').innerHTML=licount2;
+
 }
 
+//-----------------col 2 functions-----------------
 //add mission
 function addMission(){
 	//submit the edit first 
@@ -159,9 +164,7 @@ function markChange(state1,state2){
 		return false;
 	}
 	
-	oMark[0].onclick=function(){markChange.call(this,'block','block');}
-	oMark[1].onclick=function(){markChange.call(this,'none','block'); }
-	oMark[2].onclick=function(){markChange.call(this,'block','none'); }
+	
 	
 	/*纠正错误的想法：this指向调用该函数的对象*/
 	
@@ -192,15 +195,23 @@ function markChange(obj,state1,state2){
 
 //when click the mission
 
-function missionCount(){
-	var licount=$('#sort').getElementsByTagName('li').length;
-	$('#all-mission').innerHTML=licount;
+//--------------col 3 functions------------------
 
-	var licount2=byClass('cata-active')[0].className;
-	var licount2=byClass(licount2.replace(' cata-active',''))[1].getElementsByTagName('li').length;
-	byClass('cata-active')[0].getElementsByTagName('span')[0].innerHTML='('+licount2+')';
-
+//check if the finish btn exist
+function finishExist(){
+	if($('#finish').style.display=='block'){
+		$('#finish').onclick();
+	}
 }
+
+
+
+//-------------main function-------------------
+
+
+oMark[0].onclick=function(){markChange.call(this,'block','block');}
+oMark[1].onclick=function(){markChange.call(this,'none','block'); }
+oMark[2].onclick=function(){markChange.call(this,'block','none'); }
 
 $('#sort').addEventListener('click',function(e){
 	//submit the edit if so

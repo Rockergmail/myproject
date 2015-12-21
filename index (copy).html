@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
+    <title>pocket money</title>
+    <link rel="stylesheet" href="//dn-w-qiandeer.qbox.me/qd/static/dist/1.9.14/common.css"/>
+    <style>
+    body{background-color:transparent;}
+    .tip-layer {
+    background:rgba(0,0,0,.8);
+    width:100%;
+    height: 100%;
+    overflow:hidden;
+    -webkit-transform: translateZ(0);
+    }
+    
+    .bg{
+        background:url('../../static/images/hongbao/bg.png');
+        border-radius:10px;
+        -webkit-animation:animations .5s ease-out;
+        animation:animations .5s ease-out;
+        width:280px;
+        height:367px;
+        overflow:hidden;
+        position:relative;
+        -webkit-transform: translateZ(0);
+        left:50%;
+        top:50%;
+        margin-left:-140px;
+        margin-top:-183px;
+           }
+
+    @-webkit-keyframes animations{
+    0%{-webkit-transform:scale(0.3);opacity:0;}
+    20%{-webkit-transform:scale(0.6);opacity:1;}
+    80%{-webkit-transform:scale(1.2);}
+    100%{-webkit-transform:scale(1);}
+    }
+
+    @keyframes animations{
+    0%{transform:scale(0);opacity:0;}
+    20%{transform:scale(0.6);opacity:1;}
+    80%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+    }
+    .chai{
+        margin:0 auto;
+        border-radius:50%;
+        margin-top:60px;
+        width:91px;
+        height:91px;
+        line-height: 91px;
+        display:none;
+        -webkit-transform: translateZ(0); 
+        background-color: #ffbb01;
+        /*解决css动画和postion为absolute/relative一起用会导致渲染出问题*/
+        /*对该元素的渲染进行硬件加速，通过GPU来处理*/
+    }
+
+    .turn{
+        -webkit-animation:animations2 2.4s linear infinite;
+        animation:animations2 2.4s linear infinite;
+    }
+
+    @-webkit-keyframes animations2{
+        0%{-webkit-transform:rotateY(0deg);}
+        100%{-webkit-transform:rotateY(360deg);}
+    }
+    @keyframes animations2{
+        0%{transform:rotateY(0deg);}
+        100%{transform:rotateY(360deg);}
+    }
+    .bg2{
+        display: none;
+        width:280px;
+        height:367px;
+        left:50%;
+        margin-left:-140px;
+        top:50%;
+        margin-top:-183.5px;
+        background-color: #de452e;
+        border-radius: 10px;
+        text-align: center;
+        -webkit-transform: translateZ(0);
+    }
+    .char{
+        color:white;
+        margin-top:80px;
+        width: 100%;
+        line-height: 1.5em;
+    }
+    .icon-closex{
+        right:25px;
+        top: 25px;
+    }
+    .head{
+        display: block;
+        margin:23px auto 12px;
+        border:3px solid white;
+        border-radius: 50%;
+    }
+    .cid{margin-bottom: 10px;}
+    .char2{margin-bottom: 20px;}
+    #money{font-size: 44px;margin-bottom: 20px;font-weight: bold;}
+    #getmoney{width:193px;height: 39.5px;line-height: 39.5px; background-color: #ffbb01;margin:0 auto 18px;border-radius: 8px;}
+    .char3{opacity:0.5;text-decoration:underline;width:193px;margin:0 auto;height:33px;}
+    </style>
+</head>
+<body>
+<div class='tip-layer relative'>
+        <div class='bg ' >
+            <img class='absolute icon-closex' src='../../static/images/hongbao/close.png' />
+            <p class='char tac fs-24'>连接中</p>
+            <p class='chai tac'>抢红包</p>
+        </div>
+       <div class='bg2 absolute' >
+            <img class='head' src='../../static/images/hongbao/head.png' width='100px' height='100px' />
+            <p class='cid fs-12 fc-white'>ID : <span id='client-id'></span></p>
+            <p class='char2 fs-18 fc-white'>福利红包，大吉大利</p>
+            <p id='money' class='fc-white'>00.00</p>
+            <p id='getmoney' class='fs-18 fc-white tac'>拿钱走人</p>
+            <p class='char3 fs-12 fc-white'>&gt;&gt;点击查看兑现规则&lt;&lt;</p>
+        </div>
+	</div>
+    <script src="http://w.qiandeer.com/qd/static/lock/assets/zepto.js"></script>
+    <script>
+    //连接次数
+    var tryCounter=0,yourmoney=(0).toFixed(2);
+
+    //传入的参数，没有任何参数就是检查抢到没，如果是chai就是拆红包，如果check就是拆红包超时之后的查询抢到没
+
+    function myAjax(fn){
+        //检查抢过红包没
+        if(fn!='chai'){ 
+            var ajax1=$.ajax({
+                url:'/hongbao/free/status',
+                type:'POST',
+                dataType:'json',
+                timeout:10000,
+                cache:false,
+                success:function(data,textStatus,xhr){
+                    console.log(data);
+                    if(data.code==0){
+                        if(!fn){
+                        $('.char').html('抢到一个大红包<br/>拆开看看吧！');
+                        $('.chai').show();
+                        $('.chai').bind('click',chaiHongbao);
+                        }
+                        if(fn=='check'){
+                            myAjaxRetry('chai'); //返回未抢，就重连拆红包
+                        }
+                    }
+                        else if(data.code==-2){
+                             $('.chai').hide();
+                             $('.chai').unbind('click');
+                             alert(data.err.msg);
+                             window.windcalendar.doSomething(102,101,null);
+                        } else if(data.code==-1){
+                             alert('未登录');
+                             window.windcalendar.doSomething(102,101,null);
+                        } 
+                        else{
+                            alert('出错！请重试！');
+                            window.windcalendar.doSomething(102,101,null);
+                        }
+                    },
+                error:function(xhr,textStatus,errorThrown){
+                        if(textStatus=='timeout'){
+                            ajax1.abort();
+                            //查询超时，就重连查询
+                            if(fn!='check'){
+                                myAjaxRetry(); 
+                            } else {
+                                myAjaxRetry('check');
+                            }
+                        }
+                    }
+            });
+        }
+
+        //抢红包
+        else{  
+            var ajax2=$.ajax({
+            url:'/hongbao/free/pickup',
+            type:'POST',
+            cache:false,
+            dataType:'json',
+            timeout:10000,
+            success:function(data,textStatus,xhr){
+                if(data.code==0){
+                    yourmoney=(data.data.points/100).toFixed(2);
+                    var yourid=data.data.user.tid;
+                    var youricon=data.data.user.icon;
+                    $('#money').text(yourmoney);
+                    $('#client-id').text(yourid);
+                    $('.head')[0].src=youricon;
+                    setTimeout(function(){
+                        $('.bg').hide();
+                        $('.bg2').show();
+                        },500);
+                    tryCounter=0;
+                    $('.chai').unbind('click');
+                    //
+            } else{alert('出错！请重试！')}
+            },
+            error:function(xhr,textStatus,errorThrown){
+                    if(textStatus=='timeout'){
+                        ajax2.abort();
+                        $('.chai').text('x_x超时重连');
+                        myAjax('check');  //拆红包超时，去访问服务器查询抢到没
+                            }
+            }
+        });
+        }
+    }
+
+    //重连
+    function myAjaxRetry(fn){
+        if(tryCounter<3){
+            myAjax(fn);
+            tryCounter++
+        }else{
+            $('.chai').text('拆红包');
+            $('.chai').removeClass('turn');
+            alert('连接超时，请重试！');
+            if(!fn) window.windcalendar.doSomething(102,101,null);
+        }
+    }
+
+    function chaiHongbao(){
+        $(this).addClass('turn');
+        tryCounter=0;
+        myAjax('chai');
+    }
+
+    myAjax();
+        
+    $('.icon-closex').click(function(){
+        //关闭客户端的webview
+        window.windcalendar.doSomething(102,101,null);
+    });
+
+    $('#getmoney').click(function(){
+        //传输金额到客户端
+        var yourjson={
+                        'code':0,
+                        'data':{
+                            'msg':'恭喜您获得'+yourmoney+'元现金奖励，积攒30元就可以兑换哦'
+                         }
+                     };
+        yourjson=JSON.stringify(yourjson);
+        window.windcalendar.doSomething(103,102,yourjson);
+    });
+
+    $('.char3').click(function(){
+        //跳转到兑换规则
+        window.windcalendar.doSomething(104,102,null);
+        });
+    </script>
+</body>
+</html>
