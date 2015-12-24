@@ -1,0 +1,53 @@
+li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+	color:black;
+}
+.yet{
+	color:red;
+}
+.mark ul{margin:0px;padding:0px 20px;width:100%;height: 100%;}
+.mark li{display: inline-block;margin-left:10px;}
+.mark a{padding: 5px 15px;height: 50%;line-height: 45px;}
+.btnactive{background-color: #fff;border:1px solid #ccc;border-radius: 6px;}
+.cata-active{background-color: #fff !important;}
+.miss-active{background-color: #f2f2f2 !important;}
+.add-cata a,.add-miss a{
+	display: block;
+	line-height: 45px;
+	text-align: center;
+	background:url(../images/add.png) no-repeat 40px 7px/30px 30px;
+}
+.cata-list p{line-height: 26px;height: 26px;text-indent:20px;cursor:default;}
+.cata-list li,.cata-list p,.cata-list li ul {text-indent: 50px;}
+.cata-list li ul li{text-indent: 80px;background: url(../images/page.png) no-repeat 55px 4px /20px 20px; }
+.cata-list li{padding:5px 0px;cursor:pointer;}
+.cata-list li ul{margin-top:5px;}
+#cl>li{background: url(../images/doc.png) no-repeat 20px 0px /25px 25px;cursor:crosshair}
+#sort li{line-height:2em;text-indent:1em;}
+.tools{float:right;}
+.tools img{width:35px;margin-left:10px;}
+#finish{display:none;}
+#finish img{padding: 3px 0px;width:26px;}
+#newinput{text-indent: 1em;height: 1.5em;font-size:16px;width:75%;margin-top:-5px;}
+#sort div{display: none;}
+#sort div.div-active{display: block;}
+.mission-date p{line-height:2em;}
+
+#timeedit{width:150px;height:1.5em;display:none}
+
+#titleedit{
+	display:none;
+	width:100%;
+	height:50px;
+	line-height: 50px;
+	padding-left: 20px;
+	font-weight: bold;
+	font-size:22px;}
+
+#changestate{float: right;line-height: 50px;padding-right: 20px;}
+#changestate a{background-color:gray;color:white;padding: 10px;border-radius: 10px;}
+#changestate a:hover{color:red};
