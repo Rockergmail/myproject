@@ -26,5 +26,24 @@ var aMission = [{
 
 //---------------query------------
 /*
- * 添加分类
- * @param {number} */
+ * 返回主分类的名字，用来检查名字唯一性
+ * @return {Array} 主分类名字的数组
+ */
+function queryCateNames(){
+	var cateNames = [];
+	for(var i = 0; i < aCate.length; i++){
+		aCate
+	}
+}
+
+//---------------add--------------
+
+function addCate(name){
+	if(!name){
+		console.log('cate name undefined');
+	} else {
+		//检查名字唯一性
+
+		//
+	}
+}
