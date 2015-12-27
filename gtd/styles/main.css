@@ -33,8 +33,6 @@ a{
 #finish{display:none;}
 #finish img{padding: 3px 0px;width:26px;}
 #newinput{text-indent: 1em;height: 1.5em;font-size:16px;width:75%;margin-top:-5px;}
-#sort div{display: none;}
-#sort div.div-active{display: block;}
 .mission-date p{line-height:2em;}
 
 #timeedit{width:150px;height:1.5em;display:none}

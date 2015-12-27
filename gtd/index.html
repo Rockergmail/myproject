@@ -31,13 +31,7 @@
 				<li><a href='#' id='markdone'>Done</a></li>
 			</ul>
 		</div>
-		<div id='sort'>
-			<div class='1-Default-Welcome div-active'>
-			<ul>
-				<li class='done miss-active' id='aboutme'>about me</li>
-			</ul>
-			</div>
-		</div>
+		<div id='sort'></div>
 		<div class='add-miss'>
 			<a href='#' id='add-miss'>Add Mission</a>
 		</div>
@@ -57,6 +51,19 @@
 		<div id='content-text'></div>
 	</div>
 </div>
+
+<div id="tip-layer" style="display:none">
+	<div id="cover">
+		<div class='cover-header'>新增分类</div>
+		<span>选择主分类：</span>
+		<select id='addCatex'>
+			<option value="-1">新增主分类</option>
+			<option value="0">默认主分类</option>
+		</select><br/>
+		<span>新分类名称：</span><input type='text' id='newCateName' /><br/>
+		<button id='ok'>确定</button><button id='cancel'>取消</button>
+	</div>
+</div>
 <script>
 window.onload=function(){
 	var oMain=document.getElementById('main');
@@ -64,6 +71,7 @@ window.onload=function(){
 	oMain.style['height']=(document.documentElement.clientHeight-oHeader.offsetHeight)+'px';
 }
 </script>
+<script src="scripts/util.js"></script>
 <script src='scripts/main.js'></script>
 </body>
 </html>
