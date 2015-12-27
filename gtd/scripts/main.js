@@ -22,6 +22,8 @@ var aMission = [{
 		'content' : '第一个做的综合项目<br/>version 1:实现的方法是纯DOM的操作，没有任何js编程思路<br/>version 2：参考别人的代码，他用到的思路是将业务数据用json封装起来，然后按照CURL写了几个操作数据的方法。数据操作和视图操作分得很清楚，挺受启发的。这里的MVC不是很明显，但是思路是很明显的，而且他写的代码可读性高。'
 }];
 
+//---------------init database--------------
+
 /*
  *数据库的思想：
  	数据存储格式
@@ -50,7 +52,7 @@ function querySubCateNames(pid){
 	var subCateNames = [];
 	console.log(pid);
 	for(var i = 0; i < aCate[pid].child.length; i++){
-		subCateNames.push(aSubCate[i].name);
+		subCateNames.push(aSubCate[aCate[pid].child[i]].name);
 	}
 	return subCateNames;
 }
@@ -77,7 +79,7 @@ function addCate(name){
 		for(var i = 0; i < aCate.length; i++){
 			if(name === cateNames[i]){
 				alert("该名字已存在");
-				return false;
+				return 'conflict';
 			}
 		}
 		//插入主分类
@@ -97,22 +99,28 @@ function addCate(name){
  */
 function addSubCate(pid, name){
 	var subCateNames = querySubCateNames(pid);
-	if(!pid || !name){
+	var subCateId = aSubCate[aSubCate.length - 1].id + 1;
+	console.log(pid);
+	console.log(name);
+	if(!pid && !name){
 		console.log('pid or name undefined');
 	} else {
-		//检查名字唯一性
+		// 检查名字唯一性
 		for(var i = 0; i < subCateNames.length; i++){
-			if(name === subCateNames[i].name){
-				return false;
+			if(name === subCateNames[i]){
+				alert("名字已存在");
+				return 'conflict';
 			}
 		}
 		//插入子分类
 		aSubCate.push({
-			'id' : aSubCate[aSubCate.length - 1].id + 1,
+			'id' : subCateId,
 			'pid' : pid,
 			'name' : name,
 			'child' : []
 		});	
+
+		aCate[pid].child.push(subCateId);
 
 		initCates();
 	}
@@ -157,12 +165,15 @@ function initCates(){
 		for(var j = 0; j < aCate[i].child.length; j++){
 			var serial = aCate[i].child[j];
 			var subCate = aSubCate[serial].name;
+			console.log(subCate);
 			tempStr += '<li>'+subCate+'</li>';
  		}
  		tempStr += '</ul></li>';
 	}
 	$("#cl").innerHTML=tempStr;
-	// listMissions();
+
+	initOptions();
+	listMissions();
 }
 
 //lack paixu of dates and content
@@ -179,10 +190,10 @@ function listMissions(){
 
 //初始化选项
 function initOptions(){
-	var allCates = queryCateNames;
+	var allCates = queryCateNames();
 	var tempStr = '<option value="-1">新增主分类</option>';
 	for(var i = 0; i < allCates.length; i++){
-		tempStr += '<option value="'+i+'">'+allCates[i].name+'</option>';
+		tempStr += '<option value="'+i+'">'+allCates[i]+'</option>';
 	}
 	$("#addCatex").innerHTML = tempStr;
 }
@@ -197,6 +208,10 @@ $('#add-cata').onclick = function(){
 	$("#tip-layer").style.display = 'block';
 }
 
+$("#add-miss").onclick = function(){
+	addMission(currentSubCateId)
+}
+
 $("#cancel").onclick = function(){
 	$("#tip-layer").style.display = 'none';
 }
@@ -205,14 +220,21 @@ $("#ok").onclick = function(){
 	var cateList = $("#addCatex");
 	var cateid = parseInt(cateList.options[cateList.selectedIndex].value);
 	var catename = $("#newCateName").value;
-
+	var returnMsg = '';
 	if(cateid === -1){
-		addCate(catename);
+		returnMsg = addCate(catename);
 	} else {
-		addSubCate(cateid, catename)
+		returnMsg = addSubCate(cateid, catename)
 	}
 
-	$("#newCateName").value = '';
-	$("#tip-layer").style.display = 'none';
+	if(returnMsg === 'conflict'){
+		$("#newCateName").focus();
+	} else {
+		$("#newCateName").value = '';
+		$("#tip-layer").style.display = 'none';
+	}
 }
 
+initCates();
+
+//无论是重构还是第一次做，都要画出视图、按功能模块去规划，安排时间.
